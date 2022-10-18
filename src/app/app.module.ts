@@ -11,6 +11,7 @@ import { LoginpageComponent } from './pages/loginpage/loginpage.component';
 import { LoginpageBodyComponent } from './components/loginpageComponents/loginpage-body/loginpage-body.component';
 import {LoginButtonComponent} from "./components/loginpageComponents/login-button/login-button.component";
 import {RouterModule} from "@angular/router";
+import { CreateAccountButtonComponent } from './components/loginpageComponents/create-account-button/create-account-button.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {RouterModule} from "@angular/router";
     FrontpageFooterComponent,
     LoginpageComponent,
     LoginpageBodyComponent,
-    LoginButtonComponent
+    LoginButtonComponent,
+    CreateAccountButtonComponent
   ],
   imports: [
     BrowserModule,
