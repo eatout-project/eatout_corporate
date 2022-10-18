@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FrontpageComponent } from './pages/frontpage/frontpage.component';
 import { FrontpageNavbarComponent } from './components/frontpageComponents/frontpage-navbar/frontpage-navbar.component';
@@ -12,6 +10,7 @@ import { FrontpageFooterComponent } from './components/frontpageComponents/front
 import { LoginpageComponent } from './pages/loginpage/loginpage.component';
 import { LoginpageBodyComponent } from './components/loginpageComponents/loginpage-body/loginpage-body.component';
 import {LoginButtonComponent} from "./components/loginpageComponents/login-button/login-button.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -28,7 +27,16 @@ import {LoginButtonComponent} from "./components/loginpageComponents/login-butto
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    RouterModule.forRoot([
+      {
+        path: "",
+        component: FrontpageComponent
+      },
+      {
+        path: "loginpage",
+        component: LoginpageComponent
+      }
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
