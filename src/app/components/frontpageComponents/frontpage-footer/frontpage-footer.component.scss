@@ -1,0 +1,14 @@
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #C40000;
+  font-family: sans-serif;
+  color: #F8F5F2;
+  margin-top: 10rem;
+}
+
+.footer-container > div {
+  padding: 0.25rem;
+}
+
