@@ -13,9 +13,10 @@ import {LoginButtonComponent} from "./components/loginpageComponents/login-butto
 import {RouterModule} from "@angular/router";
 import { CreateAccountInvertedButtonComponent } from './components/loginpageComponents/create-account-inverted-button/create-account-inverted-button.component';
 import { CreateAccountPageComponent } from './pages/create-account-page/create-account-page.component';
-import { CreateAccountPageBodyComponent } from './components/createAccountComponents/create-account-page-body/create-account-page-body.component';
-import { CreateAccountFilledButtonComponent } from './components/createAccountComponents/create-account-filled-button/create-account-filled-button.component';
-import { LoginInvertedButtonComponent } from './components/createAccountComponents/login-inverted-button/login-inverted-button.component';
+import { CreateAccountPageBodyComponent } from './components/createAccountPageComponents/create-account-page-body/create-account-page-body.component';
+import { CreateAccountFilledButtonComponent } from './components/createAccountPageComponents/create-account-filled-button/create-account-filled-button.component';
+import { LoginInvertedButtonComponent } from './components/createAccountPageComponents/login-inverted-button/login-inverted-button.component';
+import { ReservationRequestsPageComponent } from './pages/reservation-requests-page/reservation-requests-page.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LoginInvertedButtonComponent } from './components/createAccountComponen
     CreateAccountPageComponent,
     CreateAccountPageBodyComponent,
     CreateAccountFilledButtonComponent,
-    LoginInvertedButtonComponent
+    LoginInvertedButtonComponent,
+    ReservationRequestsPageComponent
   ],
   imports: [
     BrowserModule,
