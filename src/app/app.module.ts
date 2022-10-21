@@ -43,8 +43,12 @@ import { LoginInvertedButtonComponent } from './components/createAccountComponen
         component: FrontpageComponent
       },
       {
-        path: "loginpage",
+        path: "login",
         component: LoginpageComponent
+      },
+      {
+        path: "create-account",
+        component: CreateAccountPageComponent
       }
     ])
   ],

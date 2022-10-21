@@ -16,5 +16,4 @@ export class LoginpageBodyComponent implements OnInit {
   goToFrontpage(): void {
     this.router.navigate([""]);
   }
-
 }

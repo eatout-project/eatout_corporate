@@ -14,7 +14,7 @@ export class AdminLoginButtonComponent implements OnInit {
   }
 
   goToLogin(): void {
-    this.router.navigate(["/loginpage"]);
+    this.router.navigate(["/login"]);
   }
 
 }
