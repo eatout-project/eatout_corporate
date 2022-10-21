@@ -7,11 +7,15 @@ import { FrontpageBodyComponent } from './components/frontpageComponents/frontpa
 import { GetStartedButtonComponent } from './components/frontpageComponents/get-started-button/get-started-button.component';
 import { AdminLoginButtonComponent } from './components/frontpageComponents/admin-login-button/admin-login-button.component';
 import { FrontpageFooterComponent } from './components/frontpageComponents/frontpage-footer/frontpage-footer.component';
-import { LoginpageComponent } from './pages/loginpage/loginpage.component';
+import { LoginpageComponent } from './pages/loginPage/loginpage.component';
 import { LoginpageBodyComponent } from './components/loginpageComponents/loginpage-body/loginpage-body.component';
 import {LoginButtonComponent} from "./components/loginpageComponents/login-button/login-button.component";
 import {RouterModule} from "@angular/router";
-import { CreateAccountButtonComponent } from './components/loginpageComponents/create-account-button/create-account-button.component';
+import { CreateAccountInvertedButtonComponent } from './components/loginpageComponents/create-account-inverted-button/create-account-inverted-button.component';
+import { CreateAccountPageComponent } from './pages/create-account-page/create-account-page.component';
+import { CreateAccountPageBodyComponent } from './components/createAccountComponents/create-account-page-body/create-account-page-body.component';
+import { CreateAccountFilledButtonComponent } from './components/createAccountComponents/create-account-filled-button/create-account-filled-button.component';
+import { LoginInvertedButtonComponent } from './components/createAccountComponents/login-inverted-button/login-inverted-button.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { CreateAccountButtonComponent } from './components/loginpageComponents/c
     LoginpageComponent,
     LoginpageBodyComponent,
     LoginButtonComponent,
-    CreateAccountButtonComponent
+    CreateAccountInvertedButtonComponent,
+    CreateAccountPageComponent,
+    CreateAccountPageBodyComponent,
+    CreateAccountFilledButtonComponent,
+    LoginInvertedButtonComponent
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateAccountButtonComponent } from './create-account-button.component';
+import { CreateAccountInvertedButtonComponent } from './create-account-inverted-button.component';
 
 describe('CreateAccountButtonComponent', () => {
-  let component: CreateAccountButtonComponent;
-  let fixture: ComponentFixture<CreateAccountButtonComponent>;
+  let component: CreateAccountInvertedButtonComponent;
+  let fixture: ComponentFixture<CreateAccountInvertedButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateAccountButtonComponent ]
+      declarations: [ CreateAccountInvertedButtonComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateAccountButtonComponent);
+    fixture = TestBed.createComponent(CreateAccountInvertedButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
