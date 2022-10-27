@@ -1,11 +1,13 @@
 .footer-container {
+  bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #C40000;
   font-family: sans-serif;
   color: #F8F5F2;
-  margin-top: 10rem;
+  margin-top: 4rem;
 }
 
 .footer-container > div {

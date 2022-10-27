@@ -1,0 +1,43 @@
+.side-navbar-container {
+  height: 100%;
+  background-color: #C40000;
+  border-radius: 0.5rem;
+}
+
+a {
+  font-family: sans-serif;
+  padding: 1.75rem 1.5rem 0 1.5rem;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #FFFFFF;
+  display: block;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: black;
+}
+
+.side-navbar-container > div {
+  margin: 1rem;
+}
+
+a[tabindex]:focus {
+  color:black;
+  outline: none;
+}
+
+
+.button {
+  font-family: sans-serif;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  color: #FFFFFF;
+}

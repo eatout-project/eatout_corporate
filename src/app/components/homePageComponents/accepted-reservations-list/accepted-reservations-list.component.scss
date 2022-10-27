@@ -1,0 +1,29 @@
+.accepted-reservations-list {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  background-color: #FFFFFF;
+  font-family: sans-serif;
+}
+
+.accepted-reservations-list > div {
+  margin: 0.5rem 1rem;
+}
+
+.accepted-reservations-list {
+  display: flex;
+}
+
+table {
+  display: block;
+  max-height: 15rem;
+  overflow-y: auto;
+  width: 100%;
+}
+
+th, td {
+  text-align: start;
+  padding: 0.25rem 0.75rem;
+  width: 1%;
+}
+

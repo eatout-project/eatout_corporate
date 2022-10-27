@@ -1,0 +1,34 @@
+.reservation-request-navbar-container {
+  display: flex;
+  width: 100%;
+  background-color: #ffffff;
+  align-items: center;
+}
+
+.reservation-request-navbar-container > div {
+  padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+}
+
+.logo {
+  margin: 0.25rem;
+}
+
+img {
+  height: 2.5rem;
+}
+
+h2 {
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #C40000;
+}
+
+.reservation-request-title {
+  align-self: flex-end;
+  margin: 0.25rem 1rem 0.25rem auto;
+}
+
+
+
+
+

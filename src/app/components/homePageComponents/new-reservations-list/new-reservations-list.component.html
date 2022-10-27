@@ -1,0 +1,41 @@
+<div class="new-reservations-container">
+  <div class="new-reservations-title">
+    <h3>New Reservation Requests</h3>
+  </div>
+  <div class="new-reservations-list-container">
+    <table>
+      <thead>
+      <tr>
+        <th>
+          Date
+        </th>
+        <th>
+          Time
+        </th>
+        <th>
+          Amount of guests
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let reservation of reservations">
+        <td>
+          {{reservation.date.getDate()}}/{{reservation.date.getMonth()}}
+        </td>
+        <td>
+          {{reservation.date.getHours()}}:{{reservation.date.getMinutes()}}
+        </td>
+        <td>
+          {{reservation.amountOfGuests}}
+        </td>
+        <td>
+          <app-accept-reservation-button></app-accept-reservation-button>
+        </td>
+        <td>
+          <app-decline-reservation-button></app-decline-reservation-button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
