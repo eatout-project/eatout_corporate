@@ -1,38 +1,75 @@
 <div class="create-account-container">
-  <div class="logo-container" >
+  <div class="create-account-container__logo-container" >
     <img src="assets\EatOutLogo.png" (click)="goToFrontpage()">
   </div>
-  <div class="title-container">
+  <div class="create-account-container__title-container">
     <h2>Create your restaurant account</h2>
   </div>
-  <form>
-    <div class="form-container">
-      <label>Restaurant name</label>
-      <input type="text" placeholder="Enter restaurant name" required>
+  <form [formGroup]="restaurantData" class="create-account-container__form">
 
-      <label>Street name</label>
-      <input type="text" placeholder="Enter street name" required>
+      <p>
+        <mat-form-field>
+          <mat-label>Restaurant name</mat-label>
+          <input matInput type="text" formControlName="name" placeholder="Enter restaurant name" required>
+        </mat-form-field>
+      </p>
 
-      <label>Street number</label>
-      <input type="text" placeholder="Enter street number" required>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Restaurant description</mat-label>
+          <textarea matInput cdkTextareaAutosize
+                    cdkAutosizeMinRows="1"
+                    cdkAutosizeMaxRows="5" formControlName="description" placeholder="Enter restaurant description" required></textarea>
+        </mat-form-field>
+      </p>
 
-      <label>City</label>
-      <input type="text" placeholder="Enter city" required>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Street name</mat-label>
+          <input matInput type="text" formControlName="streetName" placeholder="Enter street name" required>
+        </mat-form-field>
+      </p>
 
-      <label>Zip code</label>
-      <input type="text" placeholder="Enter zip code" required>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Street number</mat-label>
+          <input matInput type="text" formControlName="houseNumber" placeholder="Enter street number" required>
+        </mat-form-field>
+      </p>
 
-      <label>Email</label>
-      <input type="text" placeholder="Enter email" required>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>City</mat-label>
+          <input matInput type="text" formControlName="city" placeholder="Enter city" required>
+        </mat-form-field>
+      </p>
 
-      <label>Password</label>
-      <input type="password" placeholder="Enter password" required>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Zip code</mat-label>
+          <input matInput type="text" formControlName="zipCode" placeholder="Enter zip code" required>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Email</mat-label>
+          <input matInput type="text" formControlName="email" placeholder="Enter email" required>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Enter password" required>
+        </mat-form-field>
+      </p>
+    <div class="create-account-container__form--button-container">
+      <button class="create-account-container__form--button-container__button" type="submit" (click)="onSubmit()" [disabled]="!restaurantData.valid">Create Account</button>
     </div>
   </form>
-  <div class="button-container">
-    <app-create-account-filled-button></app-create-account-filled-button>
-  </div>
-  <div class="registered-container">
+
+  <div class="create-account-container__registered-container">
     <p>Already registered?</p>
     <app-login-inverted-button></app-login-inverted-button>
   </div>
