@@ -7,7 +7,7 @@
 }
 
 .new-reservations-container > div {
-  margin: 0.5rem 1rem;
+  margin: 0.25rem 1rem;
 }
 
 .new-reservations-list-container {
@@ -25,6 +25,16 @@ th, td {
   text-align: start;
   padding: 0.25rem 0.75rem;
   width: 1%;
+}
+
+.new-reservations-title {
+  padding: 0.5rem 0.5rem 0 0;
+  border-bottom: 0.125rem solid #D8D9DB;
+}
+
+h3 {
+  margin: 0;
+  font-weight: bold;
 }
 
 

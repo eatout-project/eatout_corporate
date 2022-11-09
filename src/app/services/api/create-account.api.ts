@@ -6,7 +6,7 @@ import {RestaurantAccount} from "../../businessObjects/RestaurantAccount";
 export interface RestaurantAccountApiObject {
   email: string;
   password: string;
-  name: string;
+  restaurantName: string;
   description: string;
   address: RestaurantAddressApiObject;
 }

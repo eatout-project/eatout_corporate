@@ -10,7 +10,7 @@
       <p>
         <mat-form-field>
           <mat-label>Restaurant name</mat-label>
-          <input matInput type="text" formControlName="name" placeholder="Enter restaurant name" required>
+          <input matInput type="text" formControlName="restaurantName" placeholder="Enter restaurant name" required>
         </mat-form-field>
       </p>
 
@@ -65,7 +65,8 @@
         </mat-form-field>
       </p>
     <div class="create-account-container__form--button-container">
-      <button class="create-account-container__form--button-container__button" type="submit" (click)="onSubmit()" [disabled]="!restaurantData.valid">Create Account</button>
+      <button class="create-account-container__form--button-container__button" type="submit"
+              (click)="onSubmit()" [disabled]="!restaurantData.valid">Create Account</button>
     </div>
   </form>
 

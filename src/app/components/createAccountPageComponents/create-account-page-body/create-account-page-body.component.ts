@@ -3,9 +3,10 @@ import {Router} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
 import {CreateAccountFacade} from "../../../services/facades/create-account.facade";
 import {take} from "rxjs";
+import {RestaurantAccountStore} from "../../../services/stores/restaurant-account-store";
 
 export interface CreateAccountFormObject {
-  name: string;
+  restaurantName: string;
   description: string;
   streetName: string;
   houseNumber: number;
@@ -25,15 +26,15 @@ export class CreateAccountPageBodyComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private createAccountFacade: CreateAccountFacade) {
+    private createAccountFacade: CreateAccountFacade,
+    private restaurantAccountStore: RestaurantAccountStore) {
   }
 
   ngOnInit(): void {
   }
 
-
   restaurantData = this.formBuilder.group({
-    name: [''],
+    restaurantName: [''],
     description: [''],
     streetName: [''],
     houseNumber: [],
@@ -44,9 +45,8 @@ export class CreateAccountPageBodyComponent implements OnInit {
   })
 
   onSubmit() {
-    console.log(this.restaurantData.value);
     const createAccountFormObject: CreateAccountFormObject = {
-      name: this.restaurantData.value.name || '',
+      restaurantName: this.restaurantData.value.restaurantName || '',
       description: this.restaurantData.value.description || '',
       streetName: this.restaurantData.value.streetName || '',
       houseNumber: this.restaurantData.value.houseNumber || 0,
@@ -57,7 +57,7 @@ export class CreateAccountPageBodyComponent implements OnInit {
     };
 
     this.createAccountFacade.postRestaurantAccount(createAccountFormObject).pipe(take(1)).subscribe(value => {
-      console.log(value);
+      this.restaurantAccountStore.storeRestaurantAccount(value);
     })
   }
 

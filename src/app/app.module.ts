@@ -53,6 +53,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {CreateAccountFacade} from "./services/facades/create-account.facade";
 import {HttpClientModule} from "@angular/common/http";
+import {LoginFacade} from "./services/facades/login.facade";
 
 @NgModule({
   declarations: [
@@ -104,7 +105,7 @@ import {HttpClientModule} from "@angular/common/http";
     ]),
     NoopAnimationsModule
   ],
-  providers: [CreateAccountFacade],
+  providers: [CreateAccountFacade, LoginFacade],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
