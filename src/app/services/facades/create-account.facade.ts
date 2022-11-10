@@ -23,11 +23,10 @@ export class CreateAccountFacade {
     const restaurantAccount: RestaurantAccount = {
       email: createAccountFormObject.email,
       password: createAccountFormObject.password,
-      name: createAccountFormObject.name,
+      restaurantName: createAccountFormObject.restaurantName,
       description: createAccountFormObject.description,
       address: restaurantAddress
     };
-    console.log('Hej3',restaurantAccount);
 
     return this.createAccountApi.postRestaurantAccount(restaurantAccount);
   }

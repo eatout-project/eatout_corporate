@@ -12,72 +12,72 @@ export class AcceptedReservationsListComponent implements OnInit {
     {
       date: new Date(),
       amountOfGuests: 5,
-      name: 'Pablo'
+      restaurantName: 'Pablo'
     },
     {
       date: new Date(),
       amountOfGuests: 2,
-      name: 'Escobar'
+      restaurantName: 'Escobar'
     },
     {
       date: new Date(),
       amountOfGuests: 3,
-      name: 'Osama'
+      restaurantName: 'Osama'
     },
     {
       date: new Date(),
       amountOfGuests: 2,
-      name: 'Bin'
+      restaurantName: 'Bin'
     },
     {
       date: new Date(),
       amountOfGuests: 2,
-      name: 'Laden'
+      restaurantName: 'Laden'
     },
     {
       date: new Date(),
       amountOfGuests: 2,
-      name: 'Vladimir'
+      restaurantName: 'Vladimir'
     },
     {
       date: new Date(),
       amountOfGuests: 2,
-      name: 'Putin'
+      restaurantName: 'Putin'
     },
     {
       date: new Date(),
       amountOfGuests: 4,
-      name: 'Rip'
+      restaurantName: 'Rip'
     },
     {
       date: new Date(),
       amountOfGuests: 4,
-      name: 'Rap'
+      restaurantName: 'Rap'
     },
     {
       date: new Date(),
       amountOfGuests: 7,
-      name: 'Rup'
+      restaurantName: 'Rup'
     },
     {
       date: new Date(),
       amountOfGuests: 7,
-      name: 'Will'
+      restaurantName: 'Will'
     },
     {
       date: new Date(),
       amountOfGuests: 2,
-      name: 'Smith'
+      restaurantName: 'Smith'
     },
     {
       date: new Date(),
       amountOfGuests: 2,
-      name: 'Chris'
+      restaurantName: 'Chris'
     },
     {
       date: new Date(),
       amountOfGuests: 5,
-      name: 'Rock'
+      restaurantName: 'Rock'
     }
   ];
 

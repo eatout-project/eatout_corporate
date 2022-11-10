@@ -30,7 +30,10 @@ export class EatoutCorporateHttpClient {
 
   private handleErrors<T>(call: Observable<T>): Observable<T> {
     return call.pipe(
-      catchError((err, caught) => EMPTY)
+      catchError((err, caught) => {
+        console.log(err);
+        return EMPTY;
+      })
     );
   }
 
