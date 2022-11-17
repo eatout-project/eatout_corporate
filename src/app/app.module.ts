@@ -54,6 +54,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {CreateAccountFacade} from "./services/facades/create-account.facade";
 import {HttpClientModule} from "@angular/common/http";
 import {LoginFacade} from "./services/facades/login.facade";
+import { MenuEditorComponent } from './components/homePageComponents/menu-editor/menu-editor.component';
+import {MatSelectModule} from "@angular/material/select";
+import {CategoryFacade} from "./services/facades/category.facade";
 
 @NgModule({
   declarations: [
@@ -79,7 +82,8 @@ import {LoginFacade} from "./services/facades/login.facade";
     NewReservationsListComponent,
     AcceptReservationButtonComponent,
     DeclineReservationButtonComponent,
-    AcceptedReservationsListComponent
+    AcceptedReservationsListComponent,
+    MenuEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -101,11 +105,16 @@ import {LoginFacade} from "./services/facades/login.facade";
       {
         path: "create-account",
         component: CreateAccountPageComponent
+      },
+      {
+        path: "homepage",
+        component: HomepageComponent
       }
     ]),
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    MatSelectModule
   ],
-  providers: [CreateAccountFacade, LoginFacade],
+  providers: [CreateAccountFacade, LoginFacade, CategoryFacade],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

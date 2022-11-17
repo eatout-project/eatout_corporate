@@ -1,0 +1,48 @@
+<div class="menu-editor-container">
+  <h2>Edit Menu</h2>
+  <div class="menu-editor-container__category-container">
+    <h3>Category:</h3>
+
+    <form [formGroup]="newCategory" class="menu-editor-container__category-container--form">
+      <mat-form-field>
+        <mat-label>New category</mat-label>
+        <input matInput type="text" formControlName="category" placeholder="Add new category">
+      </mat-form-field>
+
+      <button class="menu-editor-container__category-container--form__category-button" type="submit"
+              (click)="onSubmitCategory()" [disabled]="!newCategory.valid">Add New Category
+      </button>
+    </form>
+
+    <mat-form-field>
+      <mat-label>Select a category</mat-label>
+      <mat-select [(value)]="selected" required>
+        <mat-option *ngFor="let category of categoryObservable | async" [value]="category.title">{{category.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="menu-editor-container__item-container">
+    <h3>Item:</h3>
+    <form [formGroup]="newItem" class="menu-editor-container__item-container--form">
+      <mat-form-field>
+        <mat-label>Item name</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Item name" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Item description</mat-label>
+        <input matInput type="text" formControlName="description" placeholder="Item description" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Item price</mat-label>
+        <input matInput type="text" formControlName="price" placeholder="Item price" required>
+      </mat-form-field>
+
+      <button class="menu-editor-container__item-container--form__item-button" type="submit"
+              (click)="onSubmitItem()" [disabled]="!newItem.valid">Add New Item
+      </button>
+    </form>
+  </div>
+</div>

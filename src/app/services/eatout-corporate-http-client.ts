@@ -25,13 +25,13 @@ export class EatoutCorporateHttpClient {
   }
 
   protected url(partialUrl: string): string {
-    return `http://localhost:5002/${partialUrl}`
+    return `http://localhost:${partialUrl}`
   }
 
   private handleErrors<T>(call: Observable<T>): Observable<T> {
     return call.pipe(
       catchError((err, caught) => {
-        console.log(err);
+        alert('Something went wrong');
         return EMPTY;
       })
     );
