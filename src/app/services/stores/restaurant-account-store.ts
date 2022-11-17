@@ -1,22 +1,40 @@
-import {RestaurantAccount} from "../../businessObjects/RestaurantAccount";
-import {Observable, ReplaySubject} from "rxjs";
 import {Injectable} from "@angular/core";
+import {
+  RestaurantLoginResponseApiObject,
+  RestaurantRegistrationResponseApiObject
+} from "../../businessObjects/LoginApiObject";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantAccountStore {
-  private restaurantAccountMapSource = new ReplaySubject<RestaurantAccount>(1);
-  private restaurantAccountMap$ = this.restaurantAccountMapSource.asObservable();
 
   constructor() {
   }
 
-  public storeRestaurantAccount(restaurantAccount: RestaurantAccount): void {
-    this.restaurantAccountMapSource.next(restaurantAccount);
+  public storeRestaurantAccountRegistration(restaurantAccount: RestaurantRegistrationResponseApiObject): void {
+    localStorage.setItem('app.restaurant',JSON.stringify(restaurantAccount));
   }
 
-  public getRestaurantAccount(): Observable<RestaurantAccount> {
-    return this.restaurantAccountMap$;
+  public storeRestaurantAccountLogin(restaurantLogin: RestaurantLoginResponseApiObject): void {
+    localStorage.setItem('app.restaurant',JSON.stringify(restaurantLogin));
+  }
+
+  public getRestaurantAccountRegistration(): RestaurantRegistrationResponseApiObject | undefined {
+    const restaurant = localStorage.getItem('app.restaurant');
+    if (restaurant){
+      return JSON.parse(restaurant);
+    } else {
+      return undefined;
+    }
+  }
+
+  public getRestaurantAccountLogin(): RestaurantLoginResponseApiObject | undefined {
+    const restaurant = localStorage.getItem('app.restaurant');
+    if (restaurant){
+      return JSON.parse(restaurant);
+    } else {
+      return undefined;
+    }
   }
 }

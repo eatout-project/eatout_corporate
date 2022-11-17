@@ -57,7 +57,7 @@ export class CreateAccountPageBodyComponent implements OnInit {
     };
 
     this.createAccountFacade.postRestaurantAccount(createAccountFormObject).pipe(take(1)).subscribe(value => {
-      this.restaurantAccountStore.storeRestaurantAccount(value);
+      this.restaurantAccountStore.storeRestaurantAccountRegistration(value);
     })
   }
 

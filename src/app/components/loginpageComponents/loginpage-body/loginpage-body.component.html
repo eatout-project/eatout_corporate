@@ -1,6 +1,6 @@
 <div class="login-container">
   <div class="login-container__logo-container" >
-    <img src="assets\EatOutLogo.png" (click)="goToFrontpage()">
+    <img alt="photo" src="assets\EatOutLogo.png" (click)="goToFrontpage()">
   </div>
   <div class="login-container__title-container">
     <h2>Login to your restaurant account</h2>
@@ -22,7 +22,7 @@
     </p>
     <div class="login-container__form--button-container">
       <button class="login-container__form--button-container__button" type="submit"
-              (click)="onSubmit()" [disabled]="!restaurantLoginData.valid">Create Account</button>
+              (click)="onSubmit()" [disabled]="!restaurantLoginData.valid">Login</button>
     </div>
   </form>
 

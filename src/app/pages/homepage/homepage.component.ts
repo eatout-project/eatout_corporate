@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {BehaviorSubject, Subject} from "rxjs";
+import {SelectedMenu} from "../../components/homePageComponents/homepage-side-navbar/homepage-side-navbar.component";
 
 @Component({
   selector: 'app-homepage',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
+  selectedMenu = SelectedMenu;
+  menuSelected: Subject<boolean> = new BehaviorSubject<boolean>(false);
+  reservationSelected: Subject<boolean> = new BehaviorSubject<boolean>(true);
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  setReservationIsSelected(selectedMenu: SelectedMenu): void {
+    if (selectedMenu === SelectedMenu.RESERVATIONS){
+      this.reservationSelected.next(true);
+      this.menuSelected.next(false);
+    } else {
+      this.reservationSelected.next(false);
+      this.menuSelected.next(true);
+    }
   }
 
 }

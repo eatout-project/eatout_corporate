@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {LoginApi} from "../api/login.api";
 import {LoginFormObject} from "../../components/loginpageComponents/loginpage-body/loginpage-body.component";
 import {Observable} from "rxjs";
-import {RestaurantLogin} from "../../businessObjects/RestaurantLogin";
+import {RestaurantLoginResponseApiObject} from "../../businessObjects/LoginApiObject";
 
 
 @Injectable()
@@ -10,8 +10,7 @@ export class LoginFacade {
   constructor(private loginApi: LoginApi) {
   }
 
-  public postRestaurantLogin(loginFormObject: LoginFormObject): Observable<RestaurantLogin>{
-    console.log('Hej1', loginFormObject);
+  public postRestaurantLogin(loginFormObject: LoginFormObject): Observable<RestaurantLoginResponseApiObject>{
     return this.loginApi.postRestaurantLogin(loginFormObject);
   }
 
