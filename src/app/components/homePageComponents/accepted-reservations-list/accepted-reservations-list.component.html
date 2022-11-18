@@ -24,10 +24,10 @@
       <tbody>
       <tr *ngFor="let reservation of reservations">
         <td>
-          {{reservation.date.getDate()}}/{{reservation.date.getMonth()}}
+          {{reservation.timeOfArrival.getDate()}}/{{reservation.timeOfArrival.getMonth()}}
         </td>
         <td>
-          {{reservation.date.getHours()}}:{{reservation.date.getMinutes()}}
+          {{reservation.timeOfArrival.getHours()}}:{{reservation.timeOfArrival.getMinutes()}}
         </td>
         <td>
           {{reservation.amountOfGuests}}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Subject} from "rxjs";
-import {SelectedMenu} from "../../components/homePageComponents/homepage-side-navbar/homepage-side-navbar.component";
+import {SelectedMenu} from "../../enums/enums";
 
 @Component({
   selector: 'app-homepage',

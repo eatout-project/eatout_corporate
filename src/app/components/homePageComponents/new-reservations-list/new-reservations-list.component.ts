@@ -1,9 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {BehaviorSubject, Subject, takeUntil} from "rxjs";
+import {ReservationStatus} from "../../../enums/enums";
+import {NewReservationsWs} from "../../../services/api/new-reservations-ws";
+import {ReservationStore} from "../../../services/stores/reservation-store";
 
 export interface Reservation {
-  date: Date;
+  customerName: string;
+  customerId: number;
+  restaurantId: number;
+  restaurantName: string;
+  timeOfArrival: Date;
   amountOfGuests: number;
-  restaurantName: string
+  status: ReservationStatus;
+}
+
+export interface ReservationApi {
+  customerName: string;
+  customerId: number;
+  restaurantId: number;
+  restaurantName: string;
+  timeOfArrival: string;
+  amountOfGuests: number;
+  status: ReservationStatus;
 }
 
 @Component({
@@ -11,9 +29,9 @@ export interface Reservation {
   templateUrl: './new-reservations-list.component.html',
   styleUrls: ['./new-reservations-list.component.scss']
 })
-export class NewReservationsListComponent implements OnInit {
+export class NewReservationsListComponent implements OnInit, OnDestroy {
 
-  reservations: Reservation[] = [
+  /*reservations: Reservation[] = [
     {
       date: new Date(),
       amountOfGuests: 5,
@@ -86,11 +104,26 @@ export class NewReservationsListComponent implements OnInit {
     }
   ];
 
-  constructor() {
+   */
+
+  newReservations: Reservation[] = [];
+  newReservationsObservable: BehaviorSubject<Reservation[]> = new BehaviorSubject<Reservation[]>([]);
+
+  onDestroyed$ = new Subject<void>();
+
+  constructor(private ws: NewReservationsWs, private reservationStore: ReservationStore) {
   }
 
   ngOnInit(): void {
+    this.ws.start();
+    this.reservationStore.getReservations().pipe(takeUntil(this.onDestroyed$)).subscribe(reservations => {
+      this.newReservations = reservations;
+      this.newReservationsObservable.next(reservations);
+    });
   }
 
-
+  ngOnDestroy(): void {
+    this.ws.stop();
+    this.onDestroyed$.complete();
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Reservation} from "../new-reservations-list/new-reservations-list.component";
+import {ReservationStatus} from "../../../enums/enums";
 
 @Component({
   selector: 'app-accepted-reservations-list',
@@ -10,75 +11,41 @@ export class AcceptedReservationsListComponent implements OnInit {
 
   reservations: Reservation[] = [
     {
-      date: new Date(),
+      customerName: 'pablo',
+      customerId: 1,
+      restaurantId: 1,
+      restaurantName: 'Pablos',
+      timeOfArrival: new Date(),
       amountOfGuests: 5,
-      restaurantName: 'Pablo'
+      status: ReservationStatus.APPROVED,
     },
     {
-      date: new Date(),
+      customerName: 'pablo2',
+      customerId: 2,
+      restaurantId: 2,
+      restaurantName: 'Pablos2',
+      timeOfArrival: new Date(),
       amountOfGuests: 2,
-      restaurantName: 'Escobar'
+      status: ReservationStatus.APPROVED,
     },
     {
-      date: new Date(),
+      customerName: 'pablo3',
+      customerId: 3,
+      restaurantId: 3,
+      restaurantName: 'Pablos3',
+      timeOfArrival: new Date(),
       amountOfGuests: 3,
-      restaurantName: 'Osama'
+      status: ReservationStatus.APPROVED,
     },
     {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Bin'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Laden'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Vladimir'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Putin'
-    },
-    {
-      date: new Date(),
+      customerName: 'pablo4',
+      customerId: 4,
+      restaurantId: 4,
+      restaurantName: 'Pablos4',
+      timeOfArrival: new Date(),
       amountOfGuests: 4,
-      restaurantName: 'Rip'
+      status: ReservationStatus.APPROVED,
     },
-    {
-      date: new Date(),
-      amountOfGuests: 4,
-      restaurantName: 'Rap'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 7,
-      restaurantName: 'Rup'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 7,
-      restaurantName: 'Will'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Smith'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Chris'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 5,
-      restaurantName: 'Rock'
-    }
   ];
 
   constructor() { }
