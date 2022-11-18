@@ -1,9 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-
-export enum SelectedMenu {
-  RESERVATIONS='reservations',
-  MENUEDITOR='menuEditor'
-}
+import {SelectedMenu} from "../../../enums/enums";
 
 @Component({
   selector: 'app-homepage-side-navbar',
