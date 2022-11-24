@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BehaviorSubject, Subject, takeUntil} from "rxjs";
+import {Subject, takeUntil} from "rxjs";
 import {ReservationStatus} from "../../../enums/enums";
 import {NewReservationsWs} from "../../../services/api/new-reservations-ws";
 import {ReservationStore} from "../../../services/stores/reservation-store";
@@ -107,7 +107,7 @@ export class NewReservationsListComponent implements OnInit, OnDestroy {
    */
 
   newReservations: Reservation[] = [];
-  newReservationsObservable: BehaviorSubject<Reservation[]> = new BehaviorSubject<Reservation[]>([]);
+  newReservationsObservable: Subject<Reservation[] | undefined> = new Subject<Reservation[] | undefined>();
 
   onDestroyed$ = new Subject<void>();
 

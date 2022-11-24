@@ -10,7 +10,6 @@ export class CategoryFacade {
   }
 
   public postNewCategory(newCategory: CategoryRequestApiObject): Observable<RestaurantMenuCategoryApiObject[]>{
-    console.log('Post1')
     return this.categoryApi.postNewCategory(newCategory);
   }
 }

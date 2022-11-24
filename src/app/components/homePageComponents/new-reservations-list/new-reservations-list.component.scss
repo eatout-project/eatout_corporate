@@ -4,6 +4,13 @@
   border-radius: 0.5rem;
   background-color: #FFFFFF;
   font-family: sans-serif;
+  min-height: 18rem;
+
+  &__new-reservations-empty-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+  }
 }
 
 .new-reservations-container > div {

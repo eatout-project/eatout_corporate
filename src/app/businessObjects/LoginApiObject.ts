@@ -52,17 +52,31 @@ export interface RestaurantMenuCategoryApiObject {
   items: RestaurantMenuCategoryItemApiObject[]
 }
 
-export interface RestaurantMenuCategoryItemApiObject {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-}
-
 export interface CategoryRequestApiObject {
   restaurantId: number;
   menuId: number;
   categoryTitle: string;
+}
+
+export interface MenuRequestApiObject {
+  categoryId: number;
+  name: string;
+  description: string;
+  price: number;
+}
+
+export interface RestaurantMenuCategoryItemApiObject {
+  name: string;
+  description: string;
+  price: number;
+  image?: string;
+}
+
+export interface ItemRequestApiObject {
+  categoryId: number;
+  name: string;
+  description: string;
+  price: number;
 }
 
 export interface AddressApiObject {
