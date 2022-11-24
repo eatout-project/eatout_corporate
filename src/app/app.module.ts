@@ -58,9 +58,9 @@ import {MenuEditorComponent} from './components/homePageComponents/menu-editor/m
 import {MatSelectModule} from "@angular/material/select";
 import {CategoryFacade} from "./services/facades/category.facade";
 import {ItemFacade} from "./services/facades/item.facade";
-//import { YourMenuComponent } from './components/homePageComponents/your-menu/your-menu.component';
-//import { MenuItemComponent } from './components/homePageComponents/your-menu/menu-item/menu-item.component';
-//import { MenuCategoryComponent } from './components/homePageComponents/your-menu/menu-category/menu-category.component';
+import { YourMenuComponent } from './components/homePageComponents/your-menu/your-menu.component';
+import { MenuItemComponent } from './components/homePageComponents/your-menu/menu-item/menu-item.component';
+import { MenuCategoryComponent } from './components/homePageComponents/your-menu/menu-category/menu-category.component';
 
 @NgModule({
   declarations: [
@@ -88,9 +88,9 @@ import {ItemFacade} from "./services/facades/item.facade";
     DeclineReservationButtonComponent,
     AcceptedReservationsListComponent,
     MenuEditorComponent,
-    //YourMenuComponent,
-    //MenuItemComponent,
-    //MenuCategoryComponent
+    YourMenuComponent,
+    MenuItemComponent,
+    MenuCategoryComponent
   ],
   imports: [
     BrowserModule,
