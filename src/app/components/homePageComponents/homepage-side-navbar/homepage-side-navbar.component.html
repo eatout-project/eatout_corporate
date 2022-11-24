@@ -1,4 +1,10 @@
 <div class="side-navbar-container">
-  <p tabindex="1" (click)="onClick(selectedMenu.RESERVATIONS)">Reservation Requests</p>
-  <p  (click)="onClick(selectedMenu.MENUEDITOR)">Menu Editor</p>
+  <div class="side-navbar-container__options-container" *ngIf="menuSelected == selectedMenu.RESERVATIONS">
+    <div class="button-selected" (click)="onClick(selectedMenu.RESERVATIONS)">Reservation Requests</div>
+    <div class="button-unselected" (click)="onClick(selectedMenu.MENUEDITOR)">Menu Editor</div>
+  </div>
+  <div class="side-navbar-container__options-container" *ngIf="menuSelected == selectedMenu.MENUEDITOR">
+    <div class="button-unselected" (click)="onClick(selectedMenu.RESERVATIONS)">Reservation Requests</div>
+    <div class="button-selected" (click)="onClick(selectedMenu.MENUEDITOR)">Menu Editor</div>
+  </div>
 </div>

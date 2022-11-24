@@ -11,6 +11,7 @@ export class HomepageSideNavbarComponent implements OnInit {
   constructor() { }
 
   selectedMenu = SelectedMenu;
+  menuSelected: string = this.selectedMenu.RESERVATIONS;
 
   @Output()
   selected = new EventEmitter<SelectedMenu>();
@@ -20,5 +21,6 @@ export class HomepageSideNavbarComponent implements OnInit {
 
   onClick(selectedMenu: SelectedMenu): void {
     this.selected.emit(selectedMenu);
+    this.menuSelected = selectedMenu;
   }
 }

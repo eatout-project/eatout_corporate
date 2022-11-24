@@ -11,7 +11,6 @@ export class CategoryApi {
   }
 
   public postNewCategory(newCategory: CategoryRequestApiObject): Observable<RestaurantMenuCategoryApiObject[]>{
-    console.log('Post3');
     return this.eatoutCorporateHttpClient.post<RestaurantMenuCategoryApiObject[]>('5000/addCategory', newCategory);
   }
 }
