@@ -14,26 +14,8 @@ export class MenuCategoryComponent implements OnInit {
     items: []
   };
 
-  menuCategoriesTest: RestaurantMenuCategoryApiObject = {
-    id: 1,
-    title: 'Drinks',
-    items: [
-      {
-        name: 'Chicken masala',
-        description: 'Very good, very niiiiice! Very good, very niiiiice!' +
-          'Very good, very niiiiice! Very good, very niiiiice!',
-        price: 68
-      },
-      {
-        name: 'Vindaloo',
-        description: 'Very good, very niiiiice! Very good, very niiiiice!' +
-          'Very good, very niiiiice! Very good, very niiiiice!',
-        price: 56
-      }
-    ]
-}
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
