@@ -9,9 +9,9 @@ import {SelectedMenu} from "../../enums/enums";
 })
 export class HomepageComponent implements OnInit {
 
-  selectedMenu = SelectedMenu;
-  menuSelected: Subject<boolean> = new BehaviorSubject<boolean>(false);
   reservationSelected: Subject<boolean> = new BehaviorSubject<boolean>(true);
+  menuSelected: Subject<boolean> = new BehaviorSubject<boolean>(false);
+  yourMenuSelected: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 
@@ -19,12 +19,24 @@ export class HomepageComponent implements OnInit {
   }
 
   setReservationIsSelected(selectedMenu: SelectedMenu): void {
-    if (selectedMenu === SelectedMenu.RESERVATIONS){
-      this.reservationSelected.next(true);
-      this.menuSelected.next(false);
-    } else {
-      this.reservationSelected.next(false);
-      this.menuSelected.next(true);
+    switch (selectedMenu) {
+      case SelectedMenu.RESERVATIONS:
+        this.reservationSelected.next(true);
+        this.menuSelected.next(false);
+        this.yourMenuSelected.next(false);
+        break;
+
+      case SelectedMenu.MENUEDITOR:
+        this.reservationSelected.next(false);
+        this.menuSelected.next(true);
+        this.yourMenuSelected.next(false);
+        break;
+
+      case SelectedMenu.YOURMENU:
+        this.reservationSelected.next(false);
+        this.menuSelected.next(false);
+        this.yourMenuSelected.next(true);
+        break;
     }
   }
 

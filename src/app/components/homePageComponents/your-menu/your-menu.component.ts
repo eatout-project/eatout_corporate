@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {RestaurantMenuApiObject} from "../../../businessObjects/LoginApiObject";
+import {Component, OnInit} from '@angular/core';
+import {
+  RestaurantLoginResponseApiObject,
+  RestaurantMenuCategoryApiObject
+} from "../../../businessObjects/LoginApiObject";
+import {BehaviorSubject, take} from "rxjs";
+import {RestaurantAccountStore} from "../../../services/stores/restaurant-account-store";
+import {Router} from "@angular/router";
+import {CategoryFacade} from "../../../services/facades/category.facade";
 
 @Component({
   selector: 'app-your-menu',
@@ -8,51 +15,29 @@ import {RestaurantMenuApiObject} from "../../../businessObjects/LoginApiObject";
 })
 export class YourMenuComponent implements OnInit {
 
-  restaurantMenu: RestaurantMenuApiObject = {
-    id: 1,
-    categories: [
-      {
-        id: 1,
-        title: 'Indian food',
-        items: [
-          {
-            name: 'Chicken masala',
-            description: 'Very good, very niiiiice! Very good, very niiiiice!' +
-              'Very good, very niiiiice! Very good, very niiiiice!',
-            price: 68
-          },
-          {
-            name: 'Vindaloo',
-            description: 'Very good, very niiiiice! Very good, very niiiiice!' +
-              'Very good, very niiiiice! Very good, very niiiiice!',
-            price: 56
-          }
-        ]
-      },
-      {
-        id: 2,
-        title: 'Pizzas',
-        items: [
-          {
-            name: 'Kebab pizza',
-            description: 'Very good, very niiiiice! Very good, very niiiiice!' +
-              'Very good, very niiiiice! Very good, very niiiiice!',
-            price: 65
-          },
-          {
-            name: 'Pepperoni pizza',
-            description: 'Very good, very niiiiice! Very good, very niiiiice!' +
-              'Very good, very niiiiice! Very good, very niiiiice!',
-            price: 60
-          }
-        ]
-      }
-    ]
+  restaurantData: RestaurantLoginResponseApiObject | undefined;
+  restaurantMenuCategories: RestaurantMenuCategoryApiObject[] = [];
+  categoryObservable: BehaviorSubject<RestaurantMenuCategoryApiObject[]> = new BehaviorSubject<RestaurantMenuCategoryApiObject[]>([]);
+
+  constructor(private restaurantAccountStore: RestaurantAccountStore,
+              private router: Router,
+              private categoryFacade: CategoryFacade) {
   }
 
-  constructor() { }
-
   ngOnInit(): void {
+    if (this.restaurantAccountStore.getRestaurantAccountLogin()) {
+      this.restaurantData = this.restaurantAccountStore.getRestaurantAccountLogin();
+      if (this.restaurantData?.restaurantMenu) {
+        this.categoryFacade.getMenuCategories(this.restaurantData.id).pipe(take(1))
+          .subscribe(categories => {
+            this.restaurantMenuCategories = categories
+          })
+        this.restaurantMenuCategories = this.restaurantData.menuCategories;
+      } else {
+        this.router.navigate(["/login"]);
+      }
+
+    }
   }
 
 }

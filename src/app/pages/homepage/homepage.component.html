@@ -1,9 +1,14 @@
-<app-homepage-navbar></app-homepage-navbar>
+<app-homepage-navbar *ngIf="reservationSelected | async" [selectedMenu]="'Reservation Requests'"></app-homepage-navbar>
+<app-homepage-navbar *ngIf="menuSelected | async" [selectedMenu]="'Menu Editor'"></app-homepage-navbar>
+<app-homepage-navbar *ngIf="yourMenuSelected | async" [selectedMenu]="'Your Menu'"></app-homepage-navbar>
+
 <div class="homepage-body-container">
   <app-homepage-side-navbar (selected)="setReservationIsSelected($event)"></app-homepage-side-navbar>
   <div class="homepage-content">
     <app-homepage-body *ngIf="reservationSelected | async"></app-homepage-body>
     <app-menu-editor *ngIf="menuSelected | async"></app-menu-editor>
+    <app-your-menu *ngIf="yourMenuSelected | async"></app-your-menu>
   </div>
 </div>
+
 <app-footer></app-footer>

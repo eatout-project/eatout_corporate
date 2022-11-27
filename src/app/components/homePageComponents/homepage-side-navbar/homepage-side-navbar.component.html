@@ -2,9 +2,16 @@
   <div class="side-navbar-container__options-container" *ngIf="menuSelected == selectedMenu.RESERVATIONS">
     <div class="button-selected" (click)="onClick(selectedMenu.RESERVATIONS)">Reservation Requests</div>
     <div class="button-unselected" (click)="onClick(selectedMenu.MENUEDITOR)">Menu Editor</div>
+    <div class="button-unselected" (click)="onClick(selectedMenu.YOURMENU)">Your Menu</div>
   </div>
   <div class="side-navbar-container__options-container" *ngIf="menuSelected == selectedMenu.MENUEDITOR">
     <div class="button-unselected" (click)="onClick(selectedMenu.RESERVATIONS)">Reservation Requests</div>
     <div class="button-selected" (click)="onClick(selectedMenu.MENUEDITOR)">Menu Editor</div>
+    <div class="button-unselected" (click)="onClick(selectedMenu.YOURMENU)">Your Menu</div>
+  </div>
+  <div class="side-navbar-container__options-container" *ngIf="menuSelected == selectedMenu.YOURMENU">
+    <div class="button-unselected" (click)="onClick(selectedMenu.RESERVATIONS)">Reservation Requests</div>
+    <div class="button-unselected" (click)="onClick(selectedMenu.MENUEDITOR)">Menu Editor</div>
+    <div class="button-selected" (click)="onClick(selectedMenu.YOURMENU)">Your Menu</div>
   </div>
 </div>

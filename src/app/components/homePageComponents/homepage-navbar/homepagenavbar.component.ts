@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-homepage-navbar',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homepagenavbar.component.scss']
 })
 export class HomepagenavbarComponent implements OnInit {
+
+  @Input() selectedMenu: string = '';
 
   constructor() { }
 

@@ -4,6 +4,7 @@
   height: 100%;
   background-color: #C40000;
   border-radius: 0.5rem;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 
   &__options-container > div {
     margin-bottom: 1rem;
@@ -40,6 +41,7 @@
   background-color: #FFFFFF;
   color: #C40000;
   transition-duration: 0.4s;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 }
 
 .button-unselected:hover {
