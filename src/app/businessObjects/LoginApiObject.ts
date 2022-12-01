@@ -1,20 +1,5 @@
 import {Address} from "./Address";
 
-export interface RestaurantLogin {
-  email: string;
-  password: string;
-}
-
-export interface RestaurantApiObject {
-  email: string;
-  restaurantName: string;
-  description: string;
-  address: AddressApiObject;
-  image?: string;
-  restaurantId?: number;
-  menu?: RestaurantMenuApiObject;
-}
-
 export interface RestaurantLoginResponseApiObject {
   id: number;
   email: string;
