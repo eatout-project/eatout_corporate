@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Subject} from "rxjs";
 import {SelectedMenu} from "../../enums/enums";
+import {RestaurantAccountStore} from "../../services/stores/restaurant-account-store";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-homepage',
@@ -13,9 +15,12 @@ export class HomepageComponent implements OnInit {
   menuSelected: Subject<boolean> = new BehaviorSubject<boolean>(false);
   yourMenuSelected: Subject<boolean> = new BehaviorSubject<boolean>(false);
 
-  constructor() { }
+  constructor(private restaurantAccountStore: RestaurantAccountStore, private router: Router) { }
 
   ngOnInit(): void {
+    if (!this.restaurantAccountStore.getRestaurantAccountLogin()) {
+      this.router.navigate(["/"]);
+    }
   }
 
   setReservationIsSelected(selectedMenu: SelectedMenu): void {
@@ -39,5 +44,4 @@ export class HomepageComponent implements OnInit {
         break;
     }
   }
-
 }

@@ -16,7 +16,7 @@ import {CategoryFacade} from "../../../services/facades/category.facade";
 export class YourMenuComponent implements OnInit {
 
   restaurantData: RestaurantLoginResponseApiObject | undefined;
-  restaurantMenuCategories: RestaurantMenuCategoryApiObject[] = [];
+  restaurantMenuCategories: RestaurantMenuCategoryApiObject[] | undefined= [];
   categoryObservable: BehaviorSubject<RestaurantMenuCategoryApiObject[]> = new BehaviorSubject<RestaurantMenuCategoryApiObject[]>([]);
 
   constructor(private restaurantAccountStore: RestaurantAccountStore,
@@ -27,12 +27,12 @@ export class YourMenuComponent implements OnInit {
   ngOnInit(): void {
     if (this.restaurantAccountStore.getRestaurantAccountLogin()) {
       this.restaurantData = this.restaurantAccountStore.getRestaurantAccountLogin();
-      if (this.restaurantData?.restaurantMenu) {
+      if (this.restaurantData?.menu) {
         this.categoryFacade.getMenuCategories(this.restaurantData.id).pipe(take(1))
           .subscribe(categories => {
             this.restaurantMenuCategories = categories
           })
-        this.restaurantMenuCategories = this.restaurantData.menuCategories;
+        this.restaurantMenuCategories = this.restaurantData.menu.categories;
       } else {
         this.router.navigate(["/login"]);
       }
