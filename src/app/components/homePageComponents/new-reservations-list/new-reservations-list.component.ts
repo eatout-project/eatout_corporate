@@ -3,6 +3,8 @@ import {BehaviorSubject, Subject, takeUntil} from "rxjs";
 import {ReservationStatus} from "../../../enums/enums";
 import {NewReservationsWs} from "../../../services/api/new-reservations-ws";
 import {ReservationStore} from "../../../services/stores/reservation-store";
+import {RestaurantAccountStore} from "../../../services/stores/restaurant-account-store";
+import {RestaurantLoginResponseApiObject} from "../../../businessObjects/LoginApiObject";
 
 export interface Reservation {
   customerName: string;
@@ -30,100 +32,33 @@ export interface ReservationApi {
   styleUrls: ['./new-reservations-list.component.scss']
 })
 export class NewReservationsListComponent implements OnInit, OnDestroy {
-
-  /*reservations: Reservation[] = [
-    {
-      date: new Date(),
-      amountOfGuests: 5,
-      restaurantName: 'Pablo'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Escobar'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 3,
-      restaurantName: 'Osama'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Bin'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Laden'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Vladimir'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Putin'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 4,
-      restaurantName: 'Rip'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 4,
-      restaurantName: 'Rap'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 7,
-      restaurantName: 'Rup'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 7,
-      restaurantName: 'Will'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Smith'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Chris'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 5,
-      restaurantName: 'Rock'
-    }
-  ];
-
-   */
-
-  newReservations: Reservation[] = [];
-  newReservationsObservable: BehaviorSubject<Reservation[]> = new BehaviorSubject<Reservation[]>([]);
-
+  newReservationsObservable: Subject<Reservation[]> = new BehaviorSubject<Reservation[]>([]);
   onDestroyed$ = new Subject<void>();
 
-  constructor(private ws: NewReservationsWs, private reservationStore: ReservationStore) {
-  }
+  constructor(
+    private ws: NewReservationsWs,
+    private reservationStore: ReservationStore,
+    private restaurantStore: RestaurantAccountStore
+  ){}
 
   ngOnInit(): void {
-    this.ws.start();
-    this.reservationStore.getReservations().pipe(takeUntil(this.onDestroyed$)).subscribe(reservations => {
-      this.newReservations = reservations;
-      this.newReservationsObservable.next(reservations);
-    });
+    const restaurant: RestaurantLoginResponseApiObject | undefined = this.restaurantStore.getRestaurantAccountLogin();
+    if (restaurant) {
+      this.ws.start(restaurant.id);
+    }
+    this.reservationStore.getReservations().pipe(
+      takeUntil(this.onDestroyed$))
+      .subscribe(reservations => {
+        this.newReservationsObservable.next(reservations);
+      })
   }
 
   ngOnDestroy(): void {
     this.ws.stop();
     this.onDestroyed$.complete();
+  }
+
+  acceptReservation(customerId: number) {
+
   }
 }

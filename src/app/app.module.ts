@@ -38,12 +38,6 @@ import {
   NewReservationsListComponent
 } from './components/homePageComponents/new-reservations-list/new-reservations-list.component';
 import {
-  AcceptReservationButtonComponent
-} from './components/homePageComponents/new-reservations-list/accept-reservation-button/accept-reservation-button.component';
-import {
-  DeclineReservationButtonComponent
-} from "./components/homePageComponents/new-reservations-list/decline-reservation-button/decline-reservation-button.component";
-import {
   AcceptedReservationsListComponent
 } from './components/homePageComponents/accepted-reservations-list/accepted-reservations-list.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -80,8 +74,6 @@ import {CategoryFacade} from "./services/facades/category.facade";
     HomepageSideNavbarComponent,
     HomepageBodyComponent,
     NewReservationsListComponent,
-    AcceptReservationButtonComponent,
-    DeclineReservationButtonComponent,
     AcceptedReservationsListComponent,
     MenuEditorComponent
   ],

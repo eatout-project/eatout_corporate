@@ -1,23 +1,24 @@
 import {Injectable} from "@angular/core";
+import {ReservationStore} from "../stores/reservation-store";
 import {
+  Reservation,
   ReservationApi
 } from "../../components/homePageComponents/new-reservations-list/new-reservations-list.component";
-import {ReservationStore} from "../stores/reservation-store";
 
 @Injectable({
   providedIn: "root"
 })
-export class NewReservationsWs {
-
+export class ReservationStatusWs {
   // @ts-ignore
   private webSocket: WebSocket;
 
   constructor(private reservationStore: ReservationStore) {
   }
 
-  public start(restaurantId: number): void {
+  public start(customerId: number): void {
     if (this.webSocket === undefined) {
-      this.connect('ws://localhost:5011', restaurantId);
+      console.debug('Going to connect to the websockets server');
+      this.connect('ws://localhost:5013', customerId);
     }
   }
 
@@ -27,28 +28,20 @@ export class NewReservationsWs {
     }
   }
 
-  private connect(partialUrl: string, restaurantId: number): void {
+  private connect(partialUrl: string, customerId: number): void {
     this.webSocket = new WebSocket(partialUrl);
 
     this.webSocket.onopen = (event: Event) => {
       console.info('WebSocket connection has been opened: %o', event);
-      this.webSocket.send(JSON.stringify({restaurantId: restaurantId}));
+      this.webSocket.send(JSON.stringify({customerId: customerId}));
     };
 
     this.webSocket.onmessage = (messageEvent: MessageEvent) => {
       const jsonReceived: string = messageEvent.data;
-      if (jsonReceived.includes('customerId')) {
+      if (jsonReceived.includes('status')) {
         const response: ReservationApi = JSON.parse(jsonReceived);
-        const finalResponse = {
-          customerName: response.customerName,
-          customerId: response.customerId,
-          restaurantId: response.restaurantId,
-          restaurantName: response.restaurantName,
-          timeOfArrival: new Date(JSON.parse(response.timeOfArrival)),
-          amountOfGuests: response.amountOfGuests,
-          status: response.status
-        }
-        this.reservationStore.updateReservations(finalResponse);
+        const reservation = this.reservationApiObjectToReservation(response);
+        this.reservationStore.updateReservations(reservation);
       }
     };
 
@@ -59,5 +52,19 @@ export class NewReservationsWs {
     this.webSocket.onclose = (closeEvent: CloseEvent) => {
       console.info('WebSocket connection has been closed: %o', closeEvent);
     };
+  }
+
+  reservationApiObjectToReservation(reservationApiObject: ReservationApi): Reservation {
+    const timeOfArrival = new Date(reservationApiObject.timeOfArrival);
+    const { customerName, customerId, restaurantId, restaurantName, amountOfGuests, status} = reservationApiObject;
+    return {
+      customerName,
+      customerId,
+      restaurantId,
+      restaurantName,
+      amountOfGuests,
+      status,
+      timeOfArrival
+    }
   }
 }

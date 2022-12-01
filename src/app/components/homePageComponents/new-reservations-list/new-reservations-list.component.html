@@ -18,23 +18,23 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let reservation of newReservationsObservable | async">
-        <td>
-          {{reservation.timeOfArrival.getDate()}}/{{reservation.timeOfArrival.getMonth()}}
-        </td>
-        <td>
-          {{reservation.timeOfArrival.getHours()}}:{{reservation.timeOfArrival.getMinutes()}}
-        </td>
-        <td>
-          {{reservation.amountOfGuests}}
-        </td>
-        <td>
-          <app-accept-reservation-button></app-accept-reservation-button>
-        </td>
-        <td>
-          <app-decline-reservation-button></app-decline-reservation-button>
-        </td>
-      </tr>
+        <tr *ngFor="let reservation of newReservationsObservable | async">
+          <td>
+            {{reservation.timeOfArrival.getDate()}}/{{reservation.timeOfArrival.getMonth()}}
+          </td>
+          <td>
+            {{reservation.timeOfArrival.getHours()}}:{{reservation.timeOfArrival.getMinutes()}}
+          </td>
+          <td>
+            {{reservation.amountOfGuests}}
+          </td>
+          <td>
+            <div class="button_accept" (click)="acceptReservation(reservation.customerId)">Accept</div>
+          </td>
+          <td>
+            <div class="button_decline">Decline</div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
