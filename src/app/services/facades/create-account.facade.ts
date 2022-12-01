@@ -6,8 +6,8 @@ import {
 import {Address} from "../../businessObjects/Address";
 import {Observable} from "rxjs";
 import {
-  RestaurantRegistrationRequestApiObject,
-  RestaurantRegistrationResponseApiObject
+  RestaurantLoginResponseApiObject,
+  RestaurantRegistrationRequestApiObject
 } from "../../businessObjects/LoginApiObject";
 
 @Injectable()
@@ -15,7 +15,7 @@ export class CreateAccountFacade {
   constructor(private createAccountApi: CreateAccountApi) {
   }
 
-  public postRestaurantAccount(createAccountFormObject: CreateAccountFormObject): Observable<RestaurantRegistrationResponseApiObject> {
+  public postRestaurantAccount(createAccountFormObject: CreateAccountFormObject): Observable<RestaurantLoginResponseApiObject> {
     const restaurantAddress: Address = {
       streetName: createAccountFormObject.streetName,
       city: createAccountFormObject.city,
@@ -26,7 +26,7 @@ export class CreateAccountFacade {
     const restaurantAccount: RestaurantRegistrationRequestApiObject = {
       email: createAccountFormObject.email,
       password: createAccountFormObject.password,
-      restaurantName: createAccountFormObject.restaurantName,
+      name: createAccountFormObject.restaurantName,
       description: createAccountFormObject.description,
       address: restaurantAddress
     };

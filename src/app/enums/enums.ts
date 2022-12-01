@@ -1,6 +1,7 @@
 export enum SelectedMenu {
   RESERVATIONS='reservations',
-  MENUEDITOR='menuEditor'
+  MENUEDITOR='menuEditor',
+  YOURMENU='yourMenu'
 }
 
 export enum ReservationStatus{

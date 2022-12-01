@@ -18,17 +18,15 @@ export interface RestaurantApiObject {
 export interface RestaurantLoginResponseApiObject {
   id: number;
   email: string;
-  restaurantName: string;
+  name: string;
   description: string;
-  restaurantMenu: RestaurantMenuApiObject;
-  menuCategories: RestaurantMenuCategoryApiObject[];
-  categoryItems: RestaurantMenuCategoryItemApiObject[];
+  menu: RestaurantMenuApiObject;
 }
 
 export interface RestaurantRegistrationResponseApiObject {
   id: number;
   email: string;
-  restaurantName: string;
+  name: string;
   description: string;
   menuId: number;
 }
@@ -36,14 +34,14 @@ export interface RestaurantRegistrationResponseApiObject {
 export interface RestaurantRegistrationRequestApiObject {
   email: string;
   password: string;
-  restaurantName: string;
+  name: string;
   description: string;
   address: Address
 }
 
 export interface RestaurantMenuApiObject {
   id: number;
-  categories?: RestaurantMenuCategoryApiObject[];
+  categories: RestaurantMenuCategoryApiObject[] | undefined;
 }
 
 export interface RestaurantMenuCategoryApiObject {
@@ -52,17 +50,33 @@ export interface RestaurantMenuCategoryApiObject {
   items: RestaurantMenuCategoryItemApiObject[]
 }
 
-export interface RestaurantMenuCategoryItemApiObject {
-  name: string;
-  description: string;
-  price: number;
-  image: string;
-}
-
 export interface CategoryRequestApiObject {
   restaurantId: number;
   menuId: number;
-  categoryTitle: string;
+  title: string;
+}
+
+export interface MenuRequestApiObject {
+  categoryId: number;
+  name: string;
+  description: string;
+  price: number;
+}
+
+export interface RestaurantMenuCategoryItemApiObject {
+  id: number;
+  categoryId: number;
+  name: string;
+  description: string;
+  price: number;
+  image?: string;
+}
+
+export interface ItemRequestApiObject {
+  categoryId: number;
+  name: string;
+  description: string;
+  price: number;
 }
 
 export interface AddressApiObject {

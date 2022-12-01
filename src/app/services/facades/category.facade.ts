@@ -12,4 +12,8 @@ export class CategoryFacade {
   public postNewCategory(newCategory: CategoryRequestApiObject): Observable<RestaurantMenuCategoryApiObject[]>{
     return this.categoryApi.postNewCategory(newCategory);
   }
+
+  public getMenuCategories(restaurantId: number): Observable<RestaurantMenuCategoryApiObject[]> {
+    return this.categoryApi.getMenuCategories(restaurantId);
+  }
 }
