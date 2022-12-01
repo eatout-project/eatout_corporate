@@ -2,8 +2,8 @@ import {Injectable} from "@angular/core";
 import {EatoutCorporateHttpClient} from "../eatout-corporate-http-client";
 import {Observable} from "rxjs";
 import {
-  RestaurantRegistrationRequestApiObject,
-  RestaurantRegistrationResponseApiObject
+  RestaurantLoginResponseApiObject,
+  RestaurantRegistrationRequestApiObject
 } from "../../businessObjects/LoginApiObject";
 
 @Injectable({
@@ -13,8 +13,8 @@ export class CreateAccountApi {
   constructor(private readonly eatoutCorporateHttpClient: EatoutCorporateHttpClient) {
   }
 
-  public postRestaurantAccount(restaurantAccount: RestaurantRegistrationRequestApiObject): Observable<RestaurantRegistrationResponseApiObject> {
+  public postRestaurantAccount(restaurantAccount: RestaurantRegistrationRequestApiObject): Observable<RestaurantLoginResponseApiObject> {
 
-    return this.eatoutCorporateHttpClient.post<RestaurantRegistrationResponseApiObject>('5002/register', restaurantAccount);
+    return this.eatoutCorporateHttpClient.post<RestaurantLoginResponseApiObject>('5002/register', restaurantAccount);
   }
 }

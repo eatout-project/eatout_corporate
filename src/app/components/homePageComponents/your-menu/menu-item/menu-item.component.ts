@@ -9,6 +9,8 @@ import {RestaurantMenuCategoryItemApiObject} from "../../../../businessObjects/L
 export class MenuItemComponent implements OnInit {
 
   @Input() categoryItem: RestaurantMenuCategoryItemApiObject = {
+    id: 0,
+    categoryId: 0,
     name: '',
     description: '',
     price: 0,

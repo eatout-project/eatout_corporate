@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SelectedMenu} from "../../../enums/enums";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-homepage-side-navbar',
@@ -8,7 +9,7 @@ import {SelectedMenu} from "../../../enums/enums";
 })
 export class HomepageSideNavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   selectedMenu = SelectedMenu;
   menuSelected: string = this.selectedMenu.RESERVATIONS;
@@ -22,5 +23,10 @@ export class HomepageSideNavbarComponent implements OnInit {
   onClick(selectedMenu: SelectedMenu): void {
     this.selected.emit(selectedMenu);
     this.menuSelected = selectedMenu;
+  }
+
+  onLogOut(): void {
+    localStorage.clear();
+    this.router.navigate(["/"]);
   }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {Params, Router} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
 import {LoginFacade} from "../../../services/facades/login.facade";
 import {take} from "rxjs";
@@ -43,7 +43,10 @@ export class LoginpageBodyComponent implements OnInit {
     this.loginFacade.postRestaurantLogin(loginFormObject).pipe(take(1)).subscribe(
       restaurantLogin => {
         this.restaurantAccountStore.storeRestaurantAccountLogin(restaurantLogin)
-        this.router.navigate(["homepage"]);
+        const queryParams: Params = {
+          entryType: 'login'
+        }
+        this.router.navigate(["homepage"], {queryParams});
       }
     )
   }
