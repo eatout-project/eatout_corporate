@@ -2,10 +2,10 @@
   <div class="new-reservations-title">
     <h3>New Reservation Requests</h3>
   </div>
-  <div class="new-reservations-container__new-reservations-empty-container" *ngIf="!(newReservationsObservable | async)">
+  <div class="new-reservations-container__new-reservations-empty-container" *ngIf="!!!(test | async)">
     <p>No new reservations</p>
   </div>
-  <div class="new-reservations-list-container" *ngIf="(newReservationsObservable | async)">
+  <div class="new-reservations-list-container" *ngIf="!!(test | async)">
     <table>
       <thead>
       <tr>
@@ -21,23 +21,23 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let reservation of newReservationsObservable | async">
-        <td>
-          {{reservation.timeOfArrival.getDate()}}/{{reservation.timeOfArrival.getMonth()}}
-        </td>
-        <td>
-          {{reservation.timeOfArrival.getHours()}}:{{reservation.timeOfArrival.getMinutes()}}
-        </td>
-        <td>
-          {{reservation.amountOfGuests}}
-        </td>
-        <td>
-          <app-accept-reservation-button></app-accept-reservation-button>
-        </td>
-        <td>
-          <app-decline-reservation-button></app-decline-reservation-button>
-        </td>
-      </tr>
+        <tr *ngFor="let reservation of (test | async | keyvalue)">
+          <td>
+            {{reservation.value.timeOfArrival.getDate()}}/{{reservation.value.timeOfArrival.getMonth()}}
+          </td>
+          <td>
+            {{reservation.value.timeOfArrival.getHours()}}:{{reservation.value.timeOfArrival.getMinutes()}}
+          </td>
+          <td>
+            {{reservation.value.amountOfGuests}}
+          </td>
+          <td>
+            <div class="button_accept" (click)="acceptReservation(reservation.value)">Accept</div>
+          </td>
+          <td>
+            <div class="button_decline" (click)="declineReservation(reservation.value)">Decline</div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

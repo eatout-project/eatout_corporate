@@ -13,7 +13,7 @@ export class LoginApi {
   }
 
   public postRestaurantLogin(loginFormObject: LoginFormObject): Observable<RestaurantLoginResponseApiObject>{
-    return this.eatoutCorporateHttpClient.post<RestaurantLoginResponseApiObject>('5002/login', loginFormObject);
+    return this.eatoutCorporateHttpClient.post<RestaurantLoginResponseApiObject>('account-service-cluster-ip-service:5002/login', loginFormObject);
   }
 
 }

@@ -1,10 +1,35 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject, takeUntil} from "rxjs";
+import {BehaviorSubject, Subject, takeUntil} from "rxjs";
 import {ReservationStatus} from "../../../enums/enums";
 import {NewReservationsWs} from "../../../services/api/new-reservations-ws";
 import {ReservationStore} from "../../../services/stores/reservation-store";
+import {RestaurantAccountStore} from "../../../services/stores/restaurant-account-store";
+import {RestaurantLoginResponseApiObject} from "../../../businessObjects/LoginApiObject";
+import {ReservationReplyWs} from "../../../services/api/reservation-reply-ws";
 
 export interface Reservation {
+  customerName: string;
+  customerId: number;
+  restaurantId: number;
+  restaurantName: string;
+  timeOfArrival: Date;
+  amountOfGuests: number;
+  status: ReservationStatus;
+}
+
+export interface ReservationWithStringDate {
+  id: number;
+  customerName: string;
+  customerId: number;
+  restaurantId: number;
+  restaurantName: string;
+  timeOfArrival: string;
+  amountOfGuests: number;
+  status: ReservationStatus;
+}
+
+export interface ReservationWithId {
+  id: number;
   customerName: string;
   customerId: number;
   restaurantId: number;
@@ -30,100 +55,49 @@ export interface ReservationApi {
   styleUrls: ['./new-reservations-list.component.scss']
 })
 export class NewReservationsListComponent implements OnInit, OnDestroy {
-
-  /*reservations: Reservation[] = [
-    {
-      date: new Date(),
-      amountOfGuests: 5,
-      restaurantName: 'Pablo'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Escobar'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 3,
-      restaurantName: 'Osama'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Bin'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Laden'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Vladimir'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Putin'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 4,
-      restaurantName: 'Rip'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 4,
-      restaurantName: 'Rap'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 7,
-      restaurantName: 'Rup'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 7,
-      restaurantName: 'Will'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Smith'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 2,
-      restaurantName: 'Chris'
-    },
-    {
-      date: new Date(),
-      amountOfGuests: 5,
-      restaurantName: 'Rock'
-    }
-  ];
-
-   */
-
-  newReservations: Reservation[] = [];
-  newReservationsObservable: Subject<Reservation[] | undefined> = new Subject<Reservation[] | undefined>();
-
+  newReservationsObservable: Subject<Map<number, ReservationWithId> | undefined> = new Subject<Map<number, ReservationWithId> | undefined>();
+  test: BehaviorSubject<Map<number, ReservationWithId> | undefined> = new BehaviorSubject<Map<number, ReservationWithId> | undefined>(new Map<number, ReservationWithId>());
   onDestroyed$ = new Subject<void>();
 
-  constructor(private ws: NewReservationsWs, private reservationStore: ReservationStore) {
-  }
+  constructor(
+    private newReservationsWs: NewReservationsWs,
+    private replyWs: ReservationReplyWs,
+    private reservationStore: ReservationStore,
+    private restaurantStore: RestaurantAccountStore
+  ){}
 
   ngOnInit(): void {
-    this.ws.start();
-    this.reservationStore.getReservations().pipe(takeUntil(this.onDestroyed$)).subscribe(reservations => {
-      this.newReservations = reservations;
-      this.newReservationsObservable.next(reservations);
-    });
+    this.newReservationsObservable.subscribe(update => {
+      update?.forEach(reservation => {
+        console.log(reservation);
+      })
+    })
+    const restaurant: RestaurantLoginResponseApiObject | undefined = this.restaurantStore.getRestaurantAccountLogin();
+    if (restaurant) {
+      console.log('restaurantId: ', restaurant.id)
+      this.newReservationsWs.start(restaurant.id);
+    }
+    this.reservationStore.getNewReservations().pipe(
+      takeUntil(this.onDestroyed$))
+      .subscribe(reservations => {
+        console.log('reservations in new list: ', reservations)
+        this.test.next(reservations);
+      })
   }
 
   ngOnDestroy(): void {
-    this.ws.stop();
+    this.newReservationsWs.stop();
     this.onDestroyed$.complete();
+  }
+
+  acceptReservation(reservation: ReservationWithId) {
+    reservation.status = ReservationStatus.APPROVED;
+    this.replyWs.sendMessage(reservation);
+    this.reservationStore.updateAcceptedReservations(reservation);
+  }
+
+  declineReservation(reservation: ReservationWithId) {
+    reservation.status = ReservationStatus.DECLINED;
+    this.replyWs.sendMessage(reservation)
   }
 }

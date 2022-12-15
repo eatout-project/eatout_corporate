@@ -22,18 +22,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let reservation of reservations">
+      <tr *ngFor="let map of acceptedReservationsObservable | async | keyvalue">
         <td>
-          {{reservation.timeOfArrival.getDate()}}/{{reservation.timeOfArrival.getMonth()}}
+          {{map.value.timeOfArrival.getDate()}}/{{map.value.timeOfArrival.getMonth()}}
         </td>
         <td>
-          {{reservation.timeOfArrival.getHours()}}:{{reservation.timeOfArrival.getMinutes()}}
+          {{map.value.timeOfArrival.getHours()}}:{{map.value.timeOfArrival.getMinutes()}}
         </td>
         <td>
-          {{reservation.amountOfGuests}}
+          {{map.value.amountOfGuests}}
         </td>
         <td>
-          {{reservation.restaurantName}}
+          {{map.value.restaurantName}}
         </td>
       </tr>
       </tbody>

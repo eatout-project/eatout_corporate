@@ -1,8 +1,7 @@
 import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
 import {
-  Reservation,
-  ReservationApi
+  ReservationWithId,
+  ReservationWithStringDate
 } from "../../components/homePageComponents/new-reservations-list/new-reservations-list.component";
 import {ReservationStore} from "../stores/reservation-store";
 
@@ -14,15 +13,13 @@ export class NewReservationsWs {
   // @ts-ignore
   private webSocket: WebSocket;
 
-  private responseSubject: Subject<Reservation> = new Subject();
-
   constructor(private reservationStore: ReservationStore) {
   }
 
-  public start(): void {
+  public start(restaurantId: number): void {
     if (this.webSocket === undefined) {
       console.debug('Going to connect to the websockets server');
-      this.connect('ws://localhost:5011');
+      this.connect('ws://restaurant-new-reservations-socket-cluster-ip-service:5011', restaurantId);
     }
   }
 
@@ -32,19 +29,25 @@ export class NewReservationsWs {
     }
   }
 
-  private connect(partialUrl: string): void {
+  private connect(partialUrl: string, id: number): void {
     console.log('partialURL',partialUrl);
     this.webSocket = new WebSocket(partialUrl);
 
     this.webSocket.onopen = (event: Event) => {
       console.info('WebSocket connection has been opened: %o', event);
+      this.webSocket.send(JSON.stringify(id));
     };
 
     this.webSocket.onmessage = (messageEvent: MessageEvent) => {
       const jsonReceived: string = messageEvent.data;
+      console.log('received: ', jsonReceived)
       if (jsonReceived.includes('customerId')) {
-        const response: ReservationApi = JSON.parse(jsonReceived);
-        const finalResponse = {
+        const response: ReservationWithStringDate = JSON.parse(jsonReceived);
+        const date = new Date(JSON.parse(response.timeOfArrival))
+        console.log(date)
+        console.log('response: ', response)
+        const finalResponse: ReservationWithId = {
+          id: response.id,
           customerName: response.customerName,
           customerId: response.customerId,
           restaurantId: response.restaurantId,
@@ -53,7 +56,7 @@ export class NewReservationsWs {
           amountOfGuests: response.amountOfGuests,
           status: response.status
         }
-        this.reservationStore.updateReservations(finalResponse);
+        this.reservationStore.updateNewReservations(finalResponse);
       }
     };
 

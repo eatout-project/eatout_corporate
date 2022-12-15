@@ -1,26 +1,52 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, Observable} from "rxjs";
-import {Reservation} from "../../components/homePageComponents/new-reservations-list/new-reservations-list.component";
+import {BehaviorSubject, Observable, take} from "rxjs";
+import {
+  ReservationWithId
+} from "../../components/homePageComponents/new-reservations-list/new-reservations-list.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationStore {
 
-  private reservationsMapChanges = new BehaviorSubject<Reservation[]>([]);
+  private reservationsMapChanges = new BehaviorSubject<Map<number, ReservationWithId>>(new Map<number, ReservationWithId>);
+  private acceptedReservationsMapChanges = new BehaviorSubject<Map<number, ReservationWithId>>(new Map<number, ReservationWithId>);
   private reservationsMap$ = this.reservationsMapChanges.asObservable();
+  private acceptedReservationsMap$ = this.acceptedReservationsMapChanges.asObservable();
 
-  updateReservations(newReservation: Reservation): void {
-    const cachedReservations = localStorage.getItem('app.reservations');
-    if (cachedReservations) {
-      const parsedCachedReservations: Reservation[] = JSON.parse(cachedReservations);
-      parsedCachedReservations.push(newReservation);
-      localStorage.setItem('app.reservations', JSON.stringify(parsedCachedReservations));
-      this.reservationsMapChanges.next(parsedCachedReservations);
-    }
+  updateNewReservations(newReservation: ReservationWithId): void {
+    this.reservationsMap$.pipe(take(1)).subscribe(reservations => {
+      reservations.set(newReservation.id, newReservation);
+      this.reservationsMapChanges.next(reservations);
+    })
   }
 
-  getReservations(): Observable<Reservation[]> {
+  updateAcceptedReservations(reservation: ReservationWithId): void {
+    this.acceptedReservationsMap$.pipe(take(1)).subscribe(reservations => {
+      console.log(reservations);
+      reservations.set(reservation.id, reservation);
+      this.acceptedReservationsMapChanges.next(reservations);
+    })
+    this.reservationsMap$.pipe(take(1)).subscribe(reservations => {
+      reservations.delete(reservation.id);
+      this.reservationsMapChanges.next(reservations);
+    })
+  }
+
+  updateDeletedReservations(reservation: ReservationWithId): void {
+    this.reservationsMap$.pipe(take(1)).subscribe(reservations => {
+      reservations.delete(reservation.id);
+      this.reservationsMapChanges.next(reservations);
+    })
+  }
+
+  getNewReservations(): Observable<Map<number, ReservationWithId>> {
     return this.reservationsMap$;
   }
+
+  getAcceptedReservations(): Observable<Map<number, ReservationWithId>> {
+    return this.acceptedReservationsMap$;
+  }
+
+
 }

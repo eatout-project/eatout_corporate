@@ -11,7 +11,7 @@ export class ItemApi {
   }
 
   public postNewItem(newItem: ItemRequestApiObject): Observable<RestaurantMenuCategoryItemApiObject[]> {
-    return this.eatoutCorporateHttpClient.post<RestaurantMenuCategoryItemApiObject[]>('5000/addItem', newItem);
+    return this.eatoutCorporateHttpClient.post<RestaurantMenuCategoryItemApiObject[]>('restaurant-service-cluster-ip-service:5000/addItem', newItem);
 
   }
 }

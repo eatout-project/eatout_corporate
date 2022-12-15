@@ -14,7 +14,6 @@ export class CreateAccountApi {
   }
 
   public postRestaurantAccount(restaurantAccount: RestaurantRegistrationRequestApiObject): Observable<RestaurantLoginResponseApiObject> {
-
-    return this.eatoutCorporateHttpClient.post<RestaurantLoginResponseApiObject>('5002/register', restaurantAccount);
+    return this.eatoutCorporateHttpClient.post<RestaurantLoginResponseApiObject>('account-service-cluster-ip-service:5002/register', restaurantAccount);
   }
 }
