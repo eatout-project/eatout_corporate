@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BehaviorSubject, Subject, takeUntil} from "rxjs";
+import {Observable, ReplaySubject, Subject, takeUntil} from "rxjs";
 import {ReservationStatus} from "../../../enums/enums";
 import {NewReservationsWs} from "../../../services/api/new-reservations-ws";
 import {ReservationStore} from "../../../services/stores/reservation-store";
 import {RestaurantAccountStore} from "../../../services/stores/restaurant-account-store";
 import {RestaurantLoginResponseApiObject} from "../../../businessObjects/LoginApiObject";
 import {ReservationReplyWs} from "../../../services/api/reservation-reply-ws";
+import {ReservationsApi} from "../../../services/api/reservations.api";
 
 export interface Reservation {
   customerName: string;
@@ -55,23 +56,20 @@ export interface ReservationApi {
   styleUrls: ['./new-reservations-list.component.scss']
 })
 export class NewReservationsListComponent implements OnInit, OnDestroy {
-  newReservationsObservable: Subject<Map<number, ReservationWithId> | undefined> = new Subject<Map<number, ReservationWithId> | undefined>();
-  test: BehaviorSubject<Map<number, ReservationWithId> | undefined> = new BehaviorSubject<Map<number, ReservationWithId> | undefined>(new Map<number, ReservationWithId>());
+  // @ts-ignore
+  newReservationsObservable: Observable<Map<number, ReservationWithId>>;
+  reservationList: ReplaySubject<Map<number, ReservationWithId> | undefined> = new ReplaySubject<Map<number, ReservationWithId> | undefined>(1);
   onDestroyed$ = new Subject<void>();
 
   constructor(
     private newReservationsWs: NewReservationsWs,
     private replyWs: ReservationReplyWs,
     private reservationStore: ReservationStore,
-    private restaurantStore: RestaurantAccountStore
+    private restaurantStore: RestaurantAccountStore,
+    private reservationApi: ReservationsApi
   ){}
 
   ngOnInit(): void {
-    this.newReservationsObservable.subscribe(update => {
-      update?.forEach(reservation => {
-        console.log(reservation);
-      })
-    })
     const restaurant: RestaurantLoginResponseApiObject | undefined = this.restaurantStore.getRestaurantAccountLogin();
     if (restaurant) {
       console.log('restaurantId: ', restaurant.id)
@@ -81,7 +79,10 @@ export class NewReservationsListComponent implements OnInit, OnDestroy {
       takeUntil(this.onDestroyed$))
       .subscribe(reservations => {
         console.log('reservations in new list: ', reservations)
-        this.test.next(reservations);
+        reservations.forEach(reservation => {
+          reservation.timeOfArrival = new Date(reservation.timeOfArrival);
+        })
+        this.reservationList.next(reservations);
       })
   }
 
@@ -91,9 +92,11 @@ export class NewReservationsListComponent implements OnInit, OnDestroy {
   }
 
   acceptReservation(reservation: ReservationWithId) {
+    console.log('Accepting: ', reservation)
     reservation.status = ReservationStatus.APPROVED;
     this.replyWs.sendMessage(reservation);
     this.reservationStore.updateAcceptedReservations(reservation);
+    this.reservationApi.updateReservation(reservation);
   }
 
   declineReservation(reservation: ReservationWithId) {

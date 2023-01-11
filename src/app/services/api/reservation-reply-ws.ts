@@ -12,7 +12,7 @@ export class ReservationReplyWs {
   }
 
   public sendMessage(reservation: ReservationWithId): void {
-    const ws = new WebSocket("ws://restaurant-reply-socket-cluster-ip-service:5012");
+    const ws = new WebSocket("ws://localhost:5012");
 
     ws.onopen = (event: Event) => {
       console.info('WebSocket connection has been opened: %o', event);

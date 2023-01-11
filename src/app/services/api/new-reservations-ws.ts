@@ -19,7 +19,7 @@ export class NewReservationsWs {
   public start(restaurantId: number): void {
     if (this.webSocket === undefined) {
       console.debug('Going to connect to the websockets server');
-      this.connect('ws://restaurant-new-reservations-socket-cluster-ip-service:5011', restaurantId);
+      this.connect('ws://localhost:5011', restaurantId);
     }
   }
 
@@ -43,8 +43,17 @@ export class NewReservationsWs {
       console.log('received: ', jsonReceived)
       if (jsonReceived.includes('customerId')) {
         const response: ReservationWithStringDate = JSON.parse(jsonReceived);
-        const date = new Date(JSON.parse(response.timeOfArrival))
+        console.log('here to test: ', response)
+        console.log(response.timeOfArrival);
+        let date;
+        if (response.timeOfArrival.includes("\"")) {
+          date = new Date(JSON.parse(response.timeOfArrival))
+        }
+        else {
+          date = new Date(response.timeOfArrival);
+        }
         console.log(date)
+        console.log(Date.parse(response.timeOfArrival))
         console.log('response: ', response)
         const finalResponse: ReservationWithId = {
           id: response.id,
@@ -52,7 +61,7 @@ export class NewReservationsWs {
           customerId: response.customerId,
           restaurantId: response.restaurantId,
           restaurantName: response.restaurantName,
-          timeOfArrival: JSON.parse(response.timeOfArrival),
+          timeOfArrival: date,
           amountOfGuests: response.amountOfGuests,
           status: response.status
         }

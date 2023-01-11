@@ -2,10 +2,10 @@
   <div class="new-reservations-title">
     <h3>New Reservation Requests</h3>
   </div>
-  <div class="new-reservations-container__new-reservations-empty-container" *ngIf="!!!(test | async)">
+  <div class="new-reservations-container__new-reservations-empty-container" *ngIf="!!!(reservationList | async)">
     <p>No new reservations</p>
   </div>
-  <div class="new-reservations-list-container" *ngIf="!!(test | async)">
+  <div class="new-reservations-list-container" *ngIf="!!(reservationList | async)">
     <table>
       <thead>
       <tr>
@@ -21,9 +21,9 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let reservation of (test | async | keyvalue)">
+        <tr *ngFor="let reservation of (reservationList | async | keyvalue)">
           <td>
-            {{reservation.value.timeOfArrival.getDate()}}/{{reservation.value.timeOfArrival.getMonth()}}
+            {{reservation.value.timeOfArrival.getDate()}}/{{reservation.value.timeOfArrival.getMonth()+1}}
           </td>
           <td>
             {{reservation.value.timeOfArrival.getHours()}}:{{reservation.value.timeOfArrival.getMinutes()}}

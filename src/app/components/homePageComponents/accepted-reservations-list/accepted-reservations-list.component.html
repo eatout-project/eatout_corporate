@@ -24,7 +24,7 @@
       <tbody>
       <tr *ngFor="let map of acceptedReservationsObservable | async | keyvalue">
         <td>
-          {{map.value.timeOfArrival.getDate()}}/{{map.value.timeOfArrival.getMonth()}}
+          {{map.value.timeOfArrival.getDate()}}/{{map.value.timeOfArrival.getMonth()+1}}
         </td>
         <td>
           {{map.value.timeOfArrival.getHours()}}:{{map.value.timeOfArrival.getMinutes()}}
