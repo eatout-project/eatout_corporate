@@ -15,11 +15,10 @@ export class ReservationReplyWs {
     const ws = new WebSocket("ws://localhost:5012");
 
     ws.onopen = (event: Event) => {
-      console.info('WebSocket connection has been opened: %o', event);
+
+      console.info('WebSocket reply connection has been opened: %o', event);
       ws.send(JSON.stringify(reservation));
-      setTimeout(() => {
-        ws.close();
-      }, 3000)
+      ws.close();
     };
 
     ws.onerror = (event: Event) => {

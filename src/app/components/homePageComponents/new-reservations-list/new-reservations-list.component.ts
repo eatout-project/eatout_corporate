@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, ReplaySubject, Subject, takeUntil} from "rxjs";
+import {Observable, ReplaySubject, Subject, take, takeUntil} from "rxjs";
 import {ReservationStatus} from "../../../enums/enums";
 import {NewReservationsWs} from "../../../services/api/new-reservations-ws";
 import {ReservationStore} from "../../../services/stores/reservation-store";
@@ -72,15 +72,43 @@ export class NewReservationsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const restaurant: RestaurantLoginResponseApiObject | undefined = this.restaurantStore.getRestaurantAccountLogin();
     if (restaurant) {
-      console.log('restaurantId: ', restaurant.id)
-      this.newReservationsWs.start(restaurant.id);
+
+      this.reservationApi.getWaitingReservations(restaurant.id).pipe(take(1)).subscribe((waitingReservations: ReservationWithStringDate[]) => {
+        const map: Map<number, ReservationWithId> = new Map<number, ReservationWithId>();
+        const array: ReservationWithId[] = [];
+        waitingReservations.forEach((reservation, id) => {
+          const reservation2: ReservationWithId = {
+            id: reservation.id,
+            customerName: reservation.customerName,
+            customerId: reservation.customerId,
+            restaurantId: reservation.restaurantId,
+            restaurantName: reservation.restaurantName,
+            status: reservation.status,
+            amountOfGuests: reservation.amountOfGuests,
+            timeOfArrival: new Date(JSON.parse(reservation.timeOfArrival))
+          }
+          array.push(reservation2);
+          map.set(reservation.id, reservation2);
+        })
+        this.reservationList.next(map);
+        this.reservationStore.storeNewReservations(array);
+        this.newReservationsWs.start(restaurant.id);
+      })
     }
+
+
     this.reservationStore.getNewReservations().pipe(
       takeUntil(this.onDestroyed$))
       .subscribe(reservations => {
-        console.log('reservations in new list: ', reservations)
+        this.reservationList.pipe(take(1)).subscribe((currentReservations) => {
+          if (currentReservations) {
+            reservations.forEach(reservation => {
+              currentReservations.set(reservation.id, reservation);
+            })
+          }
+        })
         reservations.forEach(reservation => {
-          reservation.timeOfArrival = new Date(reservation.timeOfArrival);
+
         })
         this.reservationList.next(reservations);
       })
@@ -92,11 +120,11 @@ export class NewReservationsListComponent implements OnInit, OnDestroy {
   }
 
   acceptReservation(reservation: ReservationWithId) {
-    console.log('Accepting: ', reservation)
     reservation.status = ReservationStatus.APPROVED;
     this.replyWs.sendMessage(reservation);
-    this.reservationStore.updateAcceptedReservations(reservation);
-    this.reservationApi.updateReservation(reservation);
+    this.reservationStore.acceptReservation(reservation);
+    this.reservationApi.updateReservation(reservation).pipe(take(1)).subscribe(reservation => {
+    })
   }
 
   declineReservation(reservation: ReservationWithId) {
