@@ -48,14 +48,14 @@ import {
 } from './components/homePageComponents/accepted-reservations-list/accepted-reservations-list.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatButtonModule} from "@angular/material/button";
+import {MatLegacyFormFieldModule as MatFormFieldModule} from "@angular/material/legacy-form-field";
+import {MatLegacyInputModule as MatInputModule} from "@angular/material/legacy-input";
+import {MatLegacyButtonModule as MatButtonModule} from "@angular/material/legacy-button";
 import {CreateAccountFacade} from "./services/facades/create-account.facade";
 import {HttpClientModule} from "@angular/common/http";
 import {LoginFacade} from "./services/facades/login.facade";
 import {MenuEditorComponent} from './components/homePageComponents/menu-editor/menu-editor.component';
-import {MatSelectModule} from "@angular/material/select";
+import {MatLegacySelectModule as MatSelectModule} from "@angular/material/legacy-select";
 import {CategoryFacade} from "./services/facades/category.facade";
 import {ItemFacade} from "./services/facades/item.facade";
 import { YourMenuComponent } from './components/homePageComponents/your-menu/your-menu.component';
