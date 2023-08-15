@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
-import {
-  ReservationWithId
-} from "../../components/homePageComponents/new-reservations-list/new-reservations-list.component";
+import {ReservationWithId} from "../../components/homePageComponents/new-reservations-list/new-reservations-list.component";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -12,11 +11,8 @@ export class ReservationReplyWs {
   }
 
   public sendMessage(reservation: ReservationWithId): void {
-    const ws = new WebSocket("ws://localhost:5012");
-
+    const ws = new WebSocket(environment.RESTAURANT_REPLY_SOCKET_HOST_URL);
     ws.onopen = (event: Event) => {
-
-      console.info('WebSocket reply connection has been opened: %o', event);
       ws.send(JSON.stringify(reservation));
       ws.close();
     };

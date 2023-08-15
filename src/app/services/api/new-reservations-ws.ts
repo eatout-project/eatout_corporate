@@ -4,6 +4,7 @@ import {
   ReservationWithStringDate
 } from "../../components/homePageComponents/new-reservations-list/new-reservations-list.component";
 import {ReservationStore} from "../stores/reservation-store";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +19,7 @@ export class NewReservationsWs {
   public start(restaurantId: number): void {
     if (this.webSocket === undefined) {
       console.debug('Going to connect to the websockets server');
-      this.connect('ws://localhost:5011', restaurantId);
+      this.connect(environment.RESTAURANT_NEW_RESERVATIONS_SOCKET_HOST_URL, restaurantId);
     }
   }
 

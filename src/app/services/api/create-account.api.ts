@@ -5,15 +5,19 @@ import {
   RestaurantLoginResponseApiObject,
   RestaurantRegistrationRequestApiObject
 } from "../../businessObjects/LoginApiObject";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateAccountApi {
+
+  url: string = environment.ACCOUNT_SERVICE_HOST_URL;
+
   constructor(private readonly eatoutCorporateHttpClient: EatoutCorporateHttpClient) {
   }
 
   public postRestaurantAccount(restaurantAccount: RestaurantRegistrationRequestApiObject): Observable<RestaurantLoginResponseApiObject> {
-    return this.eatoutCorporateHttpClient.post<RestaurantLoginResponseApiObject>('http://localhost:5002/register', restaurantAccount);
+    return this.eatoutCorporateHttpClient.post<RestaurantLoginResponseApiObject>(this.url + '/register', restaurantAccount);
   }
 }
